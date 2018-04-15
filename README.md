@@ -43,7 +43,7 @@
         <tr>
             <td>Heitor</td>
         </tr>
-            <td>Matheus</td>
+            <td>Matheus Rodrigues</td>
         </tr>
     </tbody>
 </table>
