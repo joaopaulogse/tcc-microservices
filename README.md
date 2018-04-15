@@ -23,6 +23,9 @@
 
 
 
+
+![Arquitetura](https://github.com/joaopaulogse/tcc-microservices/.github/arquitetura-tcc.png)
+
 <table>
     <thead>
         <tr>
