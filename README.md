@@ -23,8 +23,8 @@
 
 
 
-<img src="https://github.com/joaopaulogse/tcc-microservices/.github/arquitetura-tcc.png" width="100px" heigth="100px">
-![](https://github.com/joaopaulogse/tcc-microservices/.github/arquitetura-tcc.png)
+<img src="https://file-txuuudndqt.now.sh/" width="100px" heigth="100px">
+![](https://file-txuuudndqt.now.sh/)
 
 <table>
     <thead>
