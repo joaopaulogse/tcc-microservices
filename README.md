@@ -24,7 +24,7 @@
 
 
 <img src="https://github.com/joaopaulogse/tcc-microservices/.github/arquitetura-tcc.png" width="100px" heigth="100px">
-![Arquitetura](https://github.com/joaopaulogse/tcc-microservices/.github/arquitetura-tcc.png)
+![](https://github.com/joaopaulogse/tcc-microservices/.github/arquitetura-tcc.png)
 
 <table>
     <thead>
