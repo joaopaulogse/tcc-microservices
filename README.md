@@ -22,9 +22,9 @@
 > Service in Node
 
 
-
-<img src="https://file-txuuudndqt.now.sh/" width="500px" heigth="500px">
-
+<p align="center">
+    <img src="https://file-txuuudndqt.now.sh/" width="800px" heigth="800px">
+</p>
 <table>
     <thead>
         <tr>
