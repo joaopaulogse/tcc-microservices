@@ -1,20 +1,22 @@
 const puppeteer = require("puppeteer");
-
+const request = require("request-promise");
 
 module.exports = async (url) => {
 
+    // return await request(url);
     const browser = await puppeteer.launch({
         headless: false
-      });
-    const page = await browser.newPage();
-    await page.goto(url);
-    await page.waitFor(500);
-    const result = await page.evaluate(() => {
-        let placares = document.querySelector('.placar-jogo').innerHTML;
-
-        return placares;
     });
+    try{
+        const page = await browser.newPage();
+        await page.goto(url);
+        return await page.content();
+    } catch(err){
+        throw new Error(err);
+    }finally{
+        browser.close();
+    }
+    // const result = await page.evaluate(body => body.innerHTML, bodyHandle);
 
-    browser.close();
-    return result;
+    // return result;
 }
