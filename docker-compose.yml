@@ -1,0 +1,28 @@
+version: '2'
+services:
+  service_1:
+    container_name: service_1
+    build: ./service_1/
+    volumes:
+      - ./:/service_1
+    ports:
+      - 3003:3003
+    command:
+      # - 'ls'
+      - './service_1/node_modules/.bin/nodemon /service_1'
+    environment:
+      - NODE_AMBIENTE=docker
+    links:
+      - mongo
+    depends_on:
+      - mongo
+  mongo:
+    container_name: mongodb
+    image: mongo
+    ports: 
+      - 27017:27017
+    volumes:
+      - ./data:/data/db
+volumes:
+  data:
+    external: false

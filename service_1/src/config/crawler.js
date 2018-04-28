@@ -1,5 +1,5 @@
 const puppeteer = require("puppeteer");
-const request = require("request-promise");
+// const request = require("request-promise");
 
 module.exports = async (url) => {
 
@@ -10,13 +10,10 @@ module.exports = async (url) => {
     try{
         const page = await browser.newPage();
         await page.goto(url);
-        return await page.content();
+        const result = await page.content();
+        await browser.close();
+        return result;
     } catch(err){
         throw new Error(err);
-    }finally{
-        browser.close();
     }
-    // const result = await page.evaluate(body => body.innerHTML, bodyHandle);
-
-    // return result;
 }

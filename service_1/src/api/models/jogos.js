@@ -1,28 +1,45 @@
-import { mongo } from 'mongoose';
-
 const mongoose = require('../../config/mongodb');
 
 const JogoSchema = mongoose.Schema({
+    createdAt:Date,
+    updatedAt:Date,
     confronto: String,
-    diaConfronto: Date,
-    local:String,
-    mandante:String,
-    visitante:String,
-    resultadoMandante:String,
-    resultadoVisitante:String,
-    numeroRodada:Number
+    dataConfronto: String,
+    data: String,
+    hora: String,
+    local: String,
+    mandante: String,
+    visitante: String,
+    placarMandante: String,
+    placarVisitante: String,
+    numeroRodada: String,
+    jogoRealizado: Boolean,
+    rodada: String
 });
 
+JogoSchema.index({
+  rodada:1
+});
 
-const JogosSchema = mongoose.Schema({
+JogoSchema.index({
+  confronto:1
+});
 
-    rodada: Number,
-    jogos:[{
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'jogo'
-    }]
-})
+JogoSchema.index({
+  placarMandante:1
+});
 
-const jogos = mongoose.model('jogos', JogosSchema);
-const jogo = mongoose.model('jogos', JogoSchema);
-module.exports = { jogos, jogo };
+JogoSchema.index({
+  placarVisitante:1
+});
+
+JogoSchema.set("toObject", { virtuals: true });
+
+JogoSchema.options.toObject.transform = function (doc, ret, options) {
+  // remove the _id and __v of every document before returning the result
+  delete ret.__v;
+  return ret;
+};
+
+module.exports = mongoose.model('jogos', JogoSchema);
+
