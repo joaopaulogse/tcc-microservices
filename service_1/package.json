@@ -27,7 +27,8 @@
     "request-promise": "^4.2.2"
   },
   "devDependencies": {
-    "nodemon": "^1.17.3"
+    "nodemon": "^1.17.3",
+    "supertest": "^3.0.0"
   },
   "jest": {
     "testPathIgnorePatterns": [

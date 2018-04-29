@@ -5,3 +5,5 @@ node_modules/
 .idea
 *.iml
 data/
+yarn.lock
+service_1/yarn.lock
