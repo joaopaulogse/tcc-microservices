@@ -67,17 +67,17 @@ const buscaDados = ($, rodada) => {
  */
 const consumindoJogos = new CronJob('10 * * * * *', async () => { // a cada 10 segundos executa o job
   try{
+      console.info(`Buscando dados na API às ${new Date().toLocaleString('pt-br')}`);
       const resultado = await crawler(BASE_URL);
       const $ = cheerio.load(resultado);
 
-      console.info(`Buscando dados na API às ${new Date().toLocaleString('pt-br')}`);
 
       let rodada = $('span[class="tabela-navegacao-seletor"]').text().split('');
       rodada = Number(rodada[0]+rodada[1]);
       buscaDados($, rodada);
       console.info("Dados encontrados!");
   } catch(err){
-      console.error(err)
+      console.error('Error na busca do dados');
   }
 }, null, true);
 
@@ -86,19 +86,23 @@ const consumindoJogos = new CronJob('10 * * * * *', async () => { // a cada 10 s
  * Cron Job para que faça várias requisições a cada 1 hora
  */
 const consumindoTodosJogos = new CronJob('20 * * * * *', async () => { // a cada 1 hora executa o job
-  const resultado = await crawler(BASE_URL);
-  const $ = cheerio.load(resultado);
+  try {
+    console.info(`Buscando todas as rodadas na API às ${new Date().toLocaleString('pt-br')}`);
+    const resultado = await crawler(BASE_URL);
+    const $ = cheerio.load(resultado);
 
-  console.info(`Buscando todas as rodadas na API às ${new Date().toLocaleString('pt-br')}`);
 
-  let rodada = $('span[class="tabela-navegacao-seletor"]').text().split('');
-  rodada = Number(rodada[0]+rodada[1]);
-  for(let i = 1; i < rodada; i++){
-    const result = await crawler(BASE_URL, i);
-    const SEARCH = cheerio.load(result)
-    buscaDados(SEARCH, rodada-i);
+    let rodada = $('span[class="tabela-navegacao-seletor"]').text().split('');
+    rodada = Number(rodada[0]+rodada[1]);
+    for(let i = 1; i < rodada; i++){
+      const result = await crawler(BASE_URL, i);
+      const SEARCH = cheerio.load(result)
+      buscaDados(SEARCH, rodada-i);
+    }
+    console.info("Rodadas cadastradas!")
+  } catch (error) {
+    console.error("Erro ao atualizar dados das rodadas anteriores");
   }
-  console.info("Rodadas cadastradas!")
 }, null, true);
 
 
