@@ -8,11 +8,12 @@ const puppeteer = require("puppeteer");
 module.exports = async (url, count) => {
 
   const browser = await puppeteer.launch({
-    headless: false
+    ignoreHTTPSErrors: true,
+    args: ['--disable-setuid-sandbox', '--no-sandbox']
   });
   try{
     const page = await browser.newPage();
-    await page.goto(url);
+    await page.goto(url, { timeout : 60000 });
     if(count){
       for(let i=0; i < count;i++){
         console.log('click '+ (i+1))

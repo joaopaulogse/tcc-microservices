@@ -10,7 +10,7 @@ mongoose.connection.on('error', (error)=>{
     console.error(error);
 })
 
-mongoose.connection.on('connection', ()=>{
+mongoose.connection.on('connected', ()=>{
     console.info('Database connected!')
 })
 
