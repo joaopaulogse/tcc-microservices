@@ -7,5 +7,7 @@ RUN mkdir /service_core
 WORKDIR /service_core
 ADD . /service_core
 
+
 RUN npm install -g nodemon
+
 RUN yarn
