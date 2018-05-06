@@ -4,11 +4,11 @@ services:
     container_name: api_service_1
     build: ./service_1
     volumes:
-      - ./:/service_1
+      - ./:/tcc
     ports:
       - 3000:3000
     command:
-      - './service_1/node_modules/.bin/nodemon'
+      - 'nodemon'
       - './service_1/src/server.js'
     environment:
       - NODE_AMBIENTE=docker
@@ -20,28 +20,28 @@ services:
     container_name: api_service_2
     build: ./service_2
     volumes:
-      - ./:/service_2
+      - ./:/tcc
     ports:
       - 5000:5000
     command:
       - 'python'
-      - './service_2/server/app.py'
-  service_core:
-    container_name: api_service_core
-    build: ./service_core
-    volumes:
-      - ./:/service_core
-    ports:
-      - 3001:3001
-    command:
-      - './service_core/node_modules/.bin/nodemon'
-      - './service_core/src/server.js'
-    environment:
-      - NODE_AMBIENTE=docker
-    links:
-      - mongo
-    depends_on:
-      - mongo
+      - './server/app.py'
+  # service_core:
+  #   container_name: api_service_core
+  #   build: ./service_core
+  #   volumes:
+  #     - ./:/tcc
+  #   ports:
+  #     - 3001:3001
+  #   command:
+  #     - 'nodemon'
+  #     - './service_core/src/server.js'
+  #   environment:
+  #     - NODE_AMBIENTE=docker
+  #   links:
+  #     - mongo
+  #   depends_on:
+  #     - mongo
   mongo:
     container_name: mongodb
     image: mongo
@@ -52,4 +52,4 @@ services:
 volumes:
   data:
     external: false
-  service_1:
+  tcc:
