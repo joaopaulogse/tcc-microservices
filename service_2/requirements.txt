@@ -1,0 +1,4 @@
+requests==2.13.0
+textblob==0.15.1
+Flask==1.0.2
+twython==3.6.0
