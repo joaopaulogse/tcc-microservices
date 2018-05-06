@@ -77,7 +77,7 @@ const consumindoJogos = new CronJob('10 * * * * *', async () => { // a cada 10 s
       buscaDados($, rodada);
       console.info("Dados encontrados!");
   } catch(err){
-      console.error('Error na busca do dados');
+      console.error('Error na busca do dados', err.message);
   }
 }, null, true);
 
@@ -101,7 +101,7 @@ const consumindoTodosJogos = new CronJob('20 * * * * *', async () => { // a cada
     }
     console.info("Rodadas cadastradas!")
   } catch (error) {
-    console.error("Erro ao atualizar dados das rodadas anteriores");
+    console.error("Erro ao atualizar dados das rodadas anteriores", error.message);
   }
 }, null, true);
 
