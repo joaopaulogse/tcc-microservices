@@ -1,15 +1,41 @@
 version: '2'
 services:
   service_1:
-    container_name: service_1
-    build: ./service_1/
+    container_name: api_service_1
+    build: ./service_1
     volumes:
       - ./:/service_1
     ports:
-      - 3003:3003
+      - 3000:3000
     command:
-      # - 'ls'
-      - './service_1/node_modules/.bin/nodemon /service_1'
+      - './service_1/node_modules/.bin/nodemon'
+      - './service_1/src/server.js'
+    environment:
+      - NODE_AMBIENTE=docker
+    links:
+      - mongo
+    depends_on:
+      - mongo
+  service_2:
+    container_name: api_service_2
+    build: ./service_2
+    volumes:
+      - ./:/service_2
+    ports:
+      - 5000:5000
+    command:
+      - 'python'
+      - './service_2/server/app.py'
+  service_core:
+    container_name: api_service_core
+    build: ./service_core
+    volumes:
+      - ./:/service_core
+    ports:
+      - 3001:3001
+    command:
+      - './service_core/node_modules/.bin/nodemon'
+      - './service_core/src/server.js'
     environment:
       - NODE_AMBIENTE=docker
     links:
@@ -26,3 +52,4 @@ services:
 volumes:
   data:
     external: false
+  service_1:
