@@ -9,7 +9,7 @@ const server = http.createServer(app);
 
 server.listen(3000, '0.0.0.0', ()=>{
     console.log(`
-    Server URL: http://localhost:${server.address().port}
+http://${server.address().address}:${server.address().port} running...
 
     `);
     consumindoTodosJogos.start();
