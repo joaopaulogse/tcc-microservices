@@ -1,4 +1,4 @@
-FROM node:8.11.1
+FROM node:8.11.1-slim
 
 
 ARG NODE_ENV
@@ -20,5 +20,5 @@ RUN apt-get update && apt-get install -y wget --no-install-recommends \
 RUN mkdir /service_1
 WORKDIR /service_1
 ADD . /service_1
-RUN yarn
 RUN npm install -g nodemon
+RUN yarn

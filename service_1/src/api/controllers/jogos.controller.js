@@ -1,6 +1,7 @@
 const HTTPStatus = require('http-status');
 const Jogo = require("../models/jogos");
 const _ = require("lodash");
+const { consumindoTodosJogos, consumindoJogos }  = require("../../config/jobs")
 
 /**
  * lista todos os jogos
@@ -38,5 +39,45 @@ exports.getJogo = async (req, res) => {
   } catch (error) {
     console.error(error);
     return res.status(HTTPStatus.BAD_REQUEST).json({ error: 'Não foi possível encontrar' });
+  }
+}
+
+exports.times = async (req, res) => {
+  try {
+    let jogos = await Jogo.find({ rodada:1 }).select({mandante:1, visitante:1}).exec();
+    let alltime = []
+    jogos.map(jogo=>{
+      alltime.push(jogo.visitante)
+      alltime.push(jogo.mandante)
+      return jogo;
+    })
+    return res.json(alltime);
+  } catch (error) {
+    console.error(error);
+    res.json({error})
+  }
+};
+
+exports.stop = (req, res) => {
+  try {
+    console.log("Encerrando todos os Jobs");
+    consumindoJogos.stop();
+    consumindoTodosJogos.stop();
+    console.log("Jobs Encerrados");
+    return res.send('SERVIÇOS PARADOS');
+  } catch (error) {
+    console.log(error);
+    return res.send('ERRO AO PARAR SERVIÇOS');
+  }
+}
+
+exports.start = (req, res) => {
+  try {
+    consumindoJogos.start();
+    consumindoTodosJogos.start();
+    return res.send('SERVIÇOS INICIADOS');
+  } catch (error) {
+    console.log(error);
+    return res.send('ERRO AO INICIAR SERVIÇOS');
   }
 }

@@ -26,22 +26,22 @@ services:
     command:
       - 'python'
       - './server/app.py'
-  # service_core:
-  #   container_name: api_service_core
-  #   build: ./service_core
-  #   volumes:
-  #     - ./:/tcc
-  #   ports:
-  #     - 3001:3001
-  #   command:
-  #     - 'nodemon'
-  #     - './service_core/src/server.js'
-  #   environment:
-  #     - NODE_AMBIENTE=docker
-  #   links:
-  #     - mongo
-  #   depends_on:
-  #     - mongo
+  service_core:
+    container_name: api_service_core
+    build: ./service_core
+    volumes:
+      - ./:/tcc
+    ports:
+      - 3001:3001
+    command:
+      - 'nodemon'
+      - './src/server.js'
+    environment:
+      - NODE_AMBIENTE=docker
+    links:
+      - mongo
+    depends_on:
+      - mongo
   mongo:
     container_name: mongodb
     image: mongo

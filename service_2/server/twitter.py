@@ -1,5 +1,6 @@
 from textblob import TextBlob
 import json
+import re
 
 from twython import Twython
 
@@ -19,13 +20,26 @@ def get_tweet(search, count=2, lang="pt"):
         try:
             for tweet in tweets:
                 # print(tweet)
+                emoji_pattern = re.compile("["
+                        u"\U0001F600-\U0001F64F"  # emoticons
+                        u"\U0001F300-\U0001F5FF"  # symbols & pictographs
+                        u"\U0001F680-\U0001F6FF"  # transport & map symbols
+                        u"\U0001F1E0-\U0001F1FF"  # flags (iOS)
+                                        "]+", flags=re.UNICODE)
                 
-                analysis = TextBlob(tweet['text'])
+                analysis = TextBlob(emoji_pattern.sub(r'', tweet['text']))
+                # print(tweet['text'])    
+                try:
+                    analysis = analysis.translate(to="en")
+                except:
+                    pass
                 data = {
                     'tweet':tweet['text'], 
+                    'tweetTranslated':str(analysis),
                     'user':tweet['user']['name'],
                     'hasPolarity':(analysis.sentiment.polarity != 0.0), 
-                    'Sentiment': analysis.sentiment,
+                    'polarity': analysis.sentiment.polarity,
+                    'subjectivity': analysis.sentiment.subjectivity,
                     'lang':tweet['lang'],
                     'description':tweet['user']['description'],
                     'url_user':tweet['user']['url'],
