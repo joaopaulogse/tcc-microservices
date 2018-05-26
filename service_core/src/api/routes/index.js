@@ -6,5 +6,6 @@ const jogosTwitterController = require("../controllers/jogosTwitterController");
 routes.use("/tweets", jogosTwitterRoutes)
 routes.get("/stop", jogosTwitterController.stop);
 routes.get("/start", jogosTwitterController.start);
+routes.get("/status", jogosTwitterController.status);
 
 module.exports = routes;

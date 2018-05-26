@@ -13,7 +13,7 @@ exports.tweetsJogos = async (req, res) =>{
                 $regex: _.deburr(jogo).toLowerCase(),
                 $options: 'i'
             }
-        });
+        }).sort("-createdAt");
         return res.json(jogos);
     } catch (error) {
         console.error(error);
@@ -29,7 +29,9 @@ exports.stop = (req, res) => {
       console.log("Encerrando todos os Jobs");
       consumindoJogos.stop();
       console.log("Jobs Encerrados");
-      return res.send('SERVIÇOS PARADOS');
+      return res.json({
+          status: 'stop'
+      });
     } catch (error) {
       console.log(error);
       return res.send('ERRO AO PARAR SERVIÇOS');
@@ -39,7 +41,20 @@ exports.stop = (req, res) => {
 exports.start = (req, res) => {
     try {
       consumindoJogos.start();
-      return res.send('SERVIÇOS INICIADOS');
+      return res.json({
+          status: 'start'
+      });
+    } catch (error) {
+      console.log(error);
+      return res.send('ERRO AO INICIAR SERVIÇOS');
+    }
+}
+
+exports.status = (req, res) => {
+    try {
+      return res.json({
+          status: consumindoJogos.running ? 'running': 'stoped'
+      });
     } catch (error) {
       console.log(error);
       return res.send('ERRO AO INICIAR SERVIÇOS');

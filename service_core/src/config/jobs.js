@@ -3,10 +3,6 @@ const { CronJob } = require("cron");
 const JogosComentados = require("../api/models/jogos-comentados");
 const _ = require("lodash");
 
-const dados = async () =>{
-    const { data } = await axios.get(`http://0.0.0.0:3000/api/times`);
-    return data;
-}
 
 
 /**
@@ -14,13 +10,13 @@ const dados = async () =>{
  */
 let i = 0;
 const consumindoJogos = new CronJob('2 * * * * *', async () => { // a cada 2 segundos executa o job
-    let data = await dados();
+    let { data } = await axios.get(`http://service_1:3000/api/times`);
     try{
         if(data[i] == undefined){
             i = 0;
         }else{
             console.log(`Buscando dados na Service 2 - Time: ${data[i]} - ${new Date().toLocaleString('pt-br')}`)
-            const comentariosTime = await axios.get(`http://0.0.0.0:5000/search/${data[i]}?count=100`);
+            const comentariosTime = await axios.get(`http://service_2:5000/search/${data[i]}?count=100`);
             comentariosTime.data.map(async comentario => {
                 if(comentario.hasPolarity == true){
                     await JogosComentados({

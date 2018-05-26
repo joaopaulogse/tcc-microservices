@@ -95,7 +95,7 @@ const consumindoTodosJogos = new CronJob('20 * * * * *', async () => { // a cada
     let rodada = $('span[class="tabela-navegacao-seletor"]').text().split('');
     rodada = Number(rodada[0]+rodada[1]);
     for(let i = 1; i < rodada; i++){
-      const result = await crawler(BASE_URL, i);
+      const result = await crawler(BASE_URL, i, rodada);
       const SEARCH = cheerio.load(result)
       buscaDados(SEARCH, rodada-i);
     }

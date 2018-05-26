@@ -1,0 +1,28 @@
+{
+  "name": "service_web",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "scripts": {
+    "dev": "parcel ./index.html",
+    "build":"parcel build ./index.html"
+  },
+  "dependencies": {
+    "axios": "^0.18.0",
+    "babel-polyfill": "^6.26.0",
+    "babel-preset-env": "^1.7.0",
+    "babel-preset-es2017": "^6.24.1",
+    "marked": "^0.3.19",
+    "parcel-bundler": "^1.8.1",
+    "vue": "^2.5.16",
+    "vue-hot-reload-api": "^2.3.0",
+    "vuetify": "^1.0.17",
+    "vuex": "^3.0.1"
+  },
+  "devDependencies": {
+    "@vue/component-compiler-utils": "^1.2.1",
+    "babel-preset-latest": "^6.24.1",
+    "material-design-icons-iconfont": "^3.0.3",
+    "vue-template-compiler": "^2.5.16"
+  }
+}
