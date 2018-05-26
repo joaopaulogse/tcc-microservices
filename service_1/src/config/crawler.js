@@ -5,7 +5,7 @@ const puppeteer = require("puppeteer");
  * @param {String} url
  * @param {Number} count para repetir o numero de click na tabela de resultados
  */
-module.exports = async (url, count) => {
+module.exports = async (url, count, rodada = 0) => {
 
   const browser = await puppeteer.launch({
     ignoreHTTPSErrors: true,
@@ -16,7 +16,7 @@ module.exports = async (url, count) => {
     await page.goto(url, { timeout : 60000 });
     if(count){
       for(let i=0; i < count;i++){
-        console.log('click '+ (i+1))
+        console.log('Dados da rodada: '+ (rodada - (i+1)) )
         await page.click('.tabela-navegacao-setas.tabela-navegacao-anterior.tabela-navegacao-setas-ativa');
         await page.waitFor(1000);
       }

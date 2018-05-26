@@ -7,3 +7,5 @@ node_modules/
 data/
 yarn.lock
 service_1/yarn.lock
+.cache
+dist

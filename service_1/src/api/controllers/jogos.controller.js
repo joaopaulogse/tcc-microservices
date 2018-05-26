@@ -11,7 +11,7 @@ const { consumindoTodosJogos, consumindoJogos }  = require("../../config/jobs")
 exports.listAll = async (req, res) => {
   try {
     const { rodada, mandante, visitante, local } = req.query;
-    let jogos = await Jogo.find();
+    let jogos = await Jogo.find({}).sort('-rodada');
     if(rodada){
       jogos = jogos.filter(jogo => jogo.rodada.includes(rodada));
     }
@@ -29,7 +29,7 @@ exports.listAll = async (req, res) => {
 exports.getJogo = async (req, res) => {
   try {
     const { time } = req.params;
-    let jogos = await Jogo.find();
+    let jogos = await Jogo.find().sort('-rodada');
     jogos = jogos.filter(jogo=>
         _.deburr(jogo.mandante.toLowerCase()).includes(_.deburr(time.toLowerCase()))
         || _.deburr(jogo.visitante.toLowerCase()).includes(_.deburr(time.toLowerCase()))
@@ -64,7 +64,9 @@ exports.stop = (req, res) => {
     consumindoJogos.stop();
     consumindoTodosJogos.stop();
     console.log("Jobs Encerrados");
-    return res.send('SERVIÇOS PARADOS');
+    return res.json({
+      status : 'stoped'
+    });
   } catch (error) {
     console.log(error);
     return res.send('ERRO AO PARAR SERVIÇOS');
@@ -75,7 +77,20 @@ exports.start = (req, res) => {
   try {
     consumindoJogos.start();
     consumindoTodosJogos.start();
-    return res.send('SERVIÇOS INICIADOS');
+    return res.json({
+      status : 'started'
+    });
+  } catch (error) {
+    console.log(error);
+    return res.send('ERRO AO INICIAR SERVIÇOS');
+  }
+}
+
+exports.status = (req, res) => {
+  try {
+    return res.json({
+      status: consumindoJogos.running && consumindoTodosJogos.running ? 'running' : 'stoped'
+    });
   } catch (error) {
     console.log(error);
     return res.send('ERRO AO INICIAR SERVIÇOS');
