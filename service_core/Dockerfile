@@ -8,6 +8,6 @@ WORKDIR /service_core
 ADD . /service_core
 
 
-RUN npm install -g nodemon
+RUN npm install -g nodemon --silent
 
 RUN yarn

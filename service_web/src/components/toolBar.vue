@@ -11,13 +11,17 @@
             </v-flex>
         </v-container>
         <v-spacer></v-spacer>
-        <v-btn outline :color="getStatusService1 == 'stoped' ? 'error' : 'success' " 
-            v-on:click="jobStatusService1" >
-            Service 1
+        <v-btn outline :color="getStatusService1_1 == 'stoped' ? 'error' : 'success' " 
+            v-on:click="jobStatusMicroService1_1" >
+            Micro 1.1
+        </v-btn>
+        <v-btn outline :color="getStatusService1_2 == 'stoped' ? 'error' : 'success' " 
+            v-on:click="jobStatusMicroService1_2" >
+            Micro 1.2
         </v-btn>
         <v-btn outline :color="getStatusServiceCore == 'stoped' ? 'error' : 'success' " 
             v-on:click="jobStatusServiceCore">
-            Service core
+            M.S.Core 1.1
         </v-btn>
     </v-toolbar>
 </template>
@@ -38,8 +42,11 @@ import axios from 'axios'
             getTeams(){
                 return this.$store.state.times;
             },
-            getStatusService1(){
-                return this.$store.state.status_service_1
+            getStatusService1_1(){
+                return this.$store.state.status_service_1_1
+            },
+            getStatusService1_2(){
+                return this.$store.state.status_service_1_2
             },
             getStatusServiceCore(){
                 return this.$store.state.status_service_core
@@ -49,9 +56,21 @@ import axios from 'axios'
             selecionaTime(data){
                 this.$store.commit("getTime", {time:data})
             },
-            async jobStatusService1(){
+            async jobStatusMicroService1_1(){
                 try {
-                    const URL = `http://0.0.0.0:3000/api/${this.$store.state.status_service_1 == 'stoped' ? 'start': 'stop'}`;
+                    const URL = `http://0.0.0.0:3000/api/${this.$store.state.status_service_1_1 == 'stoped' ? 'start1': 'stop1'}`;
+                    console.log(URL)
+                    await fetch(URL, {
+                        method: 'GET'
+                    })
+                    await this.$store.commit("status")
+                } catch (error) {
+                    console.error(error);
+                }
+            },
+            async jobStatusMicroService1_2(){
+                try {
+                    const URL = `http://0.0.0.0:3000/api/${this.$store.state.status_service_1_2 == 'stoped' ? 'start2': 'stop2'}`;
                     await fetch(URL, {
                         method: 'GET'
                     })

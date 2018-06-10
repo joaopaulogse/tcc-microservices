@@ -20,5 +20,5 @@ RUN apt-get update && apt-get install -y wget --no-install-recommends \
 RUN mkdir /service_1
 WORKDIR /service_1
 ADD . /service_1
-RUN npm install -g nodemon
+RUN npm install -g nodemon --silent
 RUN yarn
