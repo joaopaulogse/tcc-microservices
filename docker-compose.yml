@@ -7,9 +7,8 @@ services:
       - ./:/tcc
     ports:
       - 3000:3000
-    command:
-      - 'nodemon'
-      - './service_1/src/server.js'
+    command: bash ./start.sh
+    env_file: [ "./.env" ]
     environment:
       - NODE_AMBIENTE=docker
     links:
@@ -33,9 +32,8 @@ services:
       - ./:/tcc
     ports:
       - 3001:3001
-    command:
-      - 'nodemon'
-      - './src/server.js'
+    command: bash ./start.sh
+    env_file: [ "./.env" ]
     environment:
       - NODE_AMBIENTE=docker
     links:
@@ -45,6 +43,7 @@ services:
   mongo:
     container_name: mongodb
     image: mongo
+    env_file: [ "./.env" ]
     ports: 
       - 27017:27017
     volumes:

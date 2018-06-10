@@ -58,10 +58,22 @@ exports.times = async (req, res) => {
   }
 };
 
-exports.stop = (req, res) => {
+exports.stop1 = (req, res) => {
   try {
     console.log("Encerrando todos os Jobs");
     consumindoJogos.stop();
+    console.log("Jobs Encerrados");
+    return res.json({
+      status : 'stoped'
+    });
+  } catch (error) {
+    console.log(error);
+    return res.send('ERRO AO PARAR SERVIÇOS');
+  }
+}
+exports.stop2 = (req, res) => {
+  try {
+    console.log("Encerrando todos os Jobs");
     consumindoTodosJogos.stop();
     console.log("Jobs Encerrados");
     return res.json({
@@ -73,9 +85,19 @@ exports.stop = (req, res) => {
   }
 }
 
-exports.start = (req, res) => {
+exports.start1 = (req, res) => {
   try {
     consumindoJogos.start();
+    return res.json({
+      status : 'started'
+    });
+  } catch (error) {
+    console.log(error);
+    return res.send('ERRO AO INICIAR SERVIÇOS');
+  }
+}
+exports.start2 = (req, res) => {
+  try {
     consumindoTodosJogos.start();
     return res.json({
       status : 'started'
@@ -88,9 +110,20 @@ exports.start = (req, res) => {
 
 exports.status = (req, res) => {
   try {
-    return res.json({
-      status: consumindoJogos.running && consumindoTodosJogos.running ? 'running' : 'stoped'
-    });
+    let { service } = req.params;
+    if(service == 1){
+      return res.json({
+        status: consumindoJogos.running ? 'running' : 'stoped'
+      });
+    }else if(service == 2) {
+      return res.json({
+        status: consumindoTodosJogos.running ? 'running' : 'stoped'
+      });
+    }else{
+      return res.status(404).json({
+        message: 'Service not found'
+      });
+    }
   } catch (error) {
     console.log(error);
     return res.send('ERRO AO INICIAR SERVIÇOS');

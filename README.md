@@ -1,5 +1,20 @@
 # Microsservices - TCC
 
+
+## To run application create an ```.env``` file with your environment variables
+```
+# Set timezone to container
+SET_CONTAINER_TIMEZONE=true
+CONTAINER_TIMEZONE=America/Sao_Paulo
+
+# CRETENDIALS TWITTER
+CONSUMER_KEY=<api_key>
+CONSUMER_SECRET=<api_key>
+ACCESS_TOKEN=<api_key>
+ACCESS_TOKEN_SECRET=<api_key>
+```
+
+
 <p align="center">
     <img src="https://file-txuuudndqt.now.sh/" width="800px" heigth="800px">
 </p>

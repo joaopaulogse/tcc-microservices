@@ -7,8 +7,8 @@
                         {{timeSelecionado}}
                     </v-card-title>
                     <v-container>
-                        <span>Análise sentimental - {{polarity}}%</span>
-                        <v-progress-linear :value="polarity" height="40" color="success"  background-color="error"></v-progress-linear>
+                        <span>Análise sentimental - {{polarity}} - {{polarity > 0 ? 'Positiva' : 'Negativa'}}</span>
+                        <v-progress-linear :value="polarityPos.length*100/tweets.length" height="40" color="success"  background-color="error"></v-progress-linear>
 
                         
                         <div v-for="time in resultadosTime" :key="time.id">
@@ -36,7 +36,7 @@
                             <v-list-tile  :key="t.id" avatar >
                             
                                 <v-list-tile-content>
-                                    <v-list-tile-title>{{t.user}} - {{t.createdAt}}</v-list-tile-title>
+                                    <v-list-tile-title>{{t.user}} - {{t.createdAt}} ({{t.polarity}})</v-list-tile-title>
                                     <v-list-tile-sub-title v-html="t.tweet"></v-list-tile-sub-title>
                                 </v-list-tile-content>
                             </v-list-tile>
@@ -66,6 +66,12 @@
             },
             tweets(){
                 return this.$store.state.tweets;
+            },
+            polarityPos(){
+                return this.$store.state.polaridadePositiva;
+            },
+            polarityNeg(){
+                return this.$store.state.polaridadeNegativa;
             },
             polarity(){
                 return this.$store.state.polarity

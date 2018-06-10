@@ -9,6 +9,7 @@ else
     echo "Timezone não modificado"
 fi
 
+echo "Instalando dependencias..."
 npm install --silent
 
 npm run dev

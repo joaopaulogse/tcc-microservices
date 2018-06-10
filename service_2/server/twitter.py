@@ -1,14 +1,14 @@
 from textblob import TextBlob
 import json
 import re
-
+import os
 from twython import Twython
 
-consumer_key = '08KAZsaUX3EKXIMTWnYAJT5AT'
-consumer_secret = 'eSJ4Lvw42jnRx7RYFbbM51cixXrfI5Rbjdd4yLXn7Y8dSmw1VW'
+consumer_key = os.environ["CONSUMER_KEY"]
+consumer_secret = os.environ["CONSUMER_SECRET"]
 
-access_token = '842936456771461120-Ce5haijVorq2MmLylALSx15EChD7nu9'
-access_token_secret = 'hGwRzIRjTKmG69bOczgHdzL4iqugMr3Yagc70Dh736fGc'
+access_token = os.environ["ACCESS_TOKEN"]
+access_token_secret = os.environ["ACCESS_TOKEN_SECRET"]
 
 twitter = Twython(consumer_key, consumer_secret, access_token, access_token_secret)
 

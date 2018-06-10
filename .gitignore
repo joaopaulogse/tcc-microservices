@@ -9,3 +9,5 @@ yarn.lock
 service_1/yarn.lock
 .cache
 dist
+
+.env
