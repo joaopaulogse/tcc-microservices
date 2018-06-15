@@ -18,6 +18,7 @@ services:
   service_2:
     container_name: api_service_2
     build: ./service_2
+    env_file: [ "./.env" ]
     volumes:
       - ./:/tcc
     ports:
